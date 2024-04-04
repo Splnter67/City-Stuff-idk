@@ -5,7 +5,7 @@
 #include <fstream>
 #include <windows.h>
 
-#include "../cvm 23.h"
+#include "../C21-LAB-3-Roy-Ophelie/cvm 23.h"
 
 using namespace std;
 
@@ -48,6 +48,17 @@ size_t nb_repondants;	// le nombre réel de répondants: nb_repondants = lireLesDo
 
 size_t lireLesDonnéesDuSondage(bool r1[], Protection* pro, Infection inf[], Repondant rep[]);
 
+int stat01(bool r1[]);
+int stat02(Protection* pro);
+double stat03(Protection* pro, Repondant rep[]);
+double stat04(Protection* pro, Repondant rep[]);
+double stat05(Protection* pro);
+double stat06(Protection* pro);
+string stat07(Infection inf[]);
+int stat08(Infection inf[]);
+double stat09(Infection inf[]);
+string stat10(Infection inf[]);
+
 
 
 // DÉFINITIONS DES FONCTIONS  --  écrire vos définitions ici ...
@@ -81,6 +92,93 @@ size_t lireLesDonnéesDuSondage(bool r1[], Protection* pro, Infection inf[], Repo
 	return r; // r = le nombre de répondants lus
 }
 
+int stat01(bool r1[])
+{
+	int r, t;
+	t = 0;
+	for (r = 0; r <= nb_repondants; r++) {
+		if (r1[r] == true) {
+			t++;
+		}
+	}
+	return t;
+}
+
+int stat02(Protection* pro)
+{
+	int r, a = 0;
+	for (r = 0; r <= nb_repondants; r++) {
+		if (pro->r3[r] == 'O') {
+			a++;
+		}
+	}
+	return a;
+}
+
+double stat03(Protection* pro, Repondant rep[])
+{
+	int r, n = 0;
+	double mm = {};
+	double m;
+	for (r = 0; r <= nb_repondants; r++) {
+		if (rep[r].age > 29 && rep[r].age < 40) {
+			mm += pro->r2[r];
+			n++;
+		}
+	}
+	m = mm / n;
+	return m;
+}
+
+double stat04(Protection* pro, Repondant rep[])
+{
+	int r;
+	double m = 0, d = 0, mm = 0;
+	for (r = 0; r <= nb_repondants; r++) {
+		if (pro->r5[r] == 'O' || pro->r6[r] == 'O') {
+			m++;
+			d += rep[r].age;
+		}
+	}
+	mm = d / m;
+	return mm;
+}
+
+double stat05(Protection* pro)
+{
+	return 0;
+}
+
+double stat06(Protection* pro)
+{
+	return 0;
+}
+
+string stat07(Infection inf[])
+{
+	return "false";
+}
+
+int stat08(Infection inf[])
+{
+	return 0;
+}
+
+double stat09(Infection inf[])
+{
+	return 0;
+}
+
+string stat10(Infection inf[])
+{
+	return "o";
+}
+
+
+
+
+
+
 
 int main()
 {
@@ -98,7 +196,8 @@ int main()
 
 	// B - appeler vos fonctions statistiques et afficher ici leurs résultats
 	// ...
-
+	cout << fixed << setprecision(1) << stat01(r1) << endl << stat02(pro) << endl << stat03(pro, rep) << endl << stat04(pro, rep);
+	
 
 
 
