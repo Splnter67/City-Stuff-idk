@@ -1,2 +1,3 @@
 ﻿  C21-LAB-3-Base.cpp
+C:\Users\2164752\Downloads\City-Stuff-idk-main\C21-LAB-3-Roy-Ophelie\C21-LAB-3-Roy-Ophelie\C21-LAB-3-Base.cpp(226,20): warning C4806: '==' : opération risquée : aucune valeur de type 'bool' promue en type 'char' ne peut être égale à la constante donnée
   C21-LAB-3-Roy-Ophelie.vcxproj -> C:\Users\2164752\Downloads\City-Stuff-idk-main\C21-LAB-3-Roy-Ophelie\x64\Debug\C21-LAB-3-Roy-Ophelie.exe
