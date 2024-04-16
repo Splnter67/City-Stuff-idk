@@ -235,76 +235,45 @@ double stat09(Protection* pro, Infection* inf, Repondant rep[])
 	int r, d = 0;
 	double full = 0, m = 0;
 	for (r = 0; r <= nb_repondants; r++) {
-		if (pro->r2[r] == 0 && inf[r].r8 == 1 && inf[r].r9 == 1) {
+		if ((pro->r2[r] == 0 || inf[r].r8 == 1) && inf[r].r9 == 1 && rep[r].ville == "Montréal") {
 			d += rep[r].scolarite;
 			m++;
 		}
 	}
 	full = d / m;
+	if (d == 0 && m == 0) {
+		full = 0;
+	}
 	return full;
 }
 
 string stat10(Infection* inf, Repondant rep[])
 {
-	int r, lg = 0, mtl = 0, lc = 0, vd = 0, bs = 0, bc = 0, tb = 0, aj = 0, lv = 0;
+	int r, l, v[9]{0,0,0,0,0,0,0,0,0}, w, ww;
+	string ville[9]{"Longueuil", "Montréal", "Lachine", "Vaudreuil", "Brossard", "Boucherville", "Terrebonne", "Anjou", "Laval"};
 	for (r = 0; r <= nb_repondants; r++) {
-		if (rep[r].ville == "Longueuil") {
-			lg += inf[r].r10;
-		}
-		else if (rep[r].ville == "Montréal") {
-			mtl += inf[r].r10;
-		}
-		else if (rep[r].ville == "Lachine") {
-			lc += inf[r].r10;
-		}
-		else if (rep[r].ville == "Vaudreuil") {
-			vd += inf[r].r10;
-		}
-		else if (rep[r].ville == "Brossard") {
-			bs += inf[r].r10;
-		}
-		else if (rep[r].ville == "Boucherville") {
-			bc += inf[r].r10;
-		}
-		else if (rep[r].ville == "Terrebonne") {
-			tb += inf[r].r10;
-		}
-		else if (rep[r].ville == "Anjou") {
-			aj += inf[r].r10;
-		}
-		else if (rep[r].ville == "Laval") {
-			lv += inf[r].r10;
+		for (l = 0; l < 9; l++) {
+			if (rep[r].ville == ville[l]) {
+				v[l]++;
+			}
 		}
 	}
-	if (lg >= mtl && lg >= lc && lg >= vd && lg >= bs && lg >= bc && lg >= tb && lg >= aj && lg >= lv) {
-
+	w = 0;
+	for (r = 0; r < 9; r++) {
+		ww = 0;
+		for (l = 0; l < 9; l++) {
+			if (v[r] >= v[l]) {
+				ww++;
+				if (ww >= 9) {
+					w = r;
+				}
+			}
+			else {
+				break;
+			}
+		}
 	}
-	else if (mtl >= lg && mtl >= lc && mtl >= vd && mtl >= bs && mtl >= bc && mtl >= tb && mtl >= aj && mtl >= lv) {
-
-	}
-	else if (lc >= lg && lc >= mtl && lc >= vd && lc >= bs && lc >= bc && lc >= tb && lc >= aj && lc >= lv) {
-
-	}
-	else if (vd >= lg && vd >= mtl && vd >= lc && vd >= bs && vd >= bc && vd >= tb && vd >= aj && vd >= lv) {
-
-	}
-	else if (bs >= lg && bs >= mtl && bs >= lc && bs >= vd && bs >= bc && bs >= tb && bs >= aj && bs >= lv) {
-
-	}
-	else if (bc >= lg && bc >= mtl && bc >= lc && bc >= vd && bc >= bs && bc >= tb && bc >= aj && bc >= lv) {
-
-	}
-	else if (tb >= lg && tb >= mtl && tb >= lc && tb >= vd && tb >= bs && tb >= bc && tb >= aj && tb >= lv) {
-
-	}
-	else if (aj >= lg && aj >= mtl && aj >= lc && aj >= vd && aj >= bs && aj >= bc && aj >= tb && aj >= lv) {
-
-	}
-	else if (lv >= lg && lv >= mtl && lv >= lc && lv >= vd && lv >= bs && lv >= bc && lv >= tb && lv >= aj) {
-
-	}
-
-	return "o";
+	return ville[w];
 }
 
 
@@ -329,8 +298,16 @@ int main()
 
 	// B - appeler vos fonctions statistiques et afficher ici leurs résultats
 	// ...
-	cout << fixed << setprecision(1) << stat01(r1) << endl << stat02(pro) << endl << stat03(pro, rep) << endl << stat04(pro, rep) << endl << stat05(pro, rep) << endl
-		<< stat06(inf) << endl << stat07(inf) << endl << stat08(pro, inf) << endl << stat09(pro, inf, rep);
+	cout << fixed << setprecision(1) << "1. Combien de personnes toussent souvent ?  " << stat01(r1) << endl
+		<< "2. Combien de personnes veulent un masque dans leur auto ?  " << stat02(pro) << endl
+		<< "3. Combiens de masques, en moyenne, ont les gens qui sont dans la trentaine ?  " << stat03(pro, rep) << endl
+		<< "4. Quel est l'âge moyen des gens qui se serviraient d'un masque pour décorer ou pour dormir ?  " << stat04(pro, rep) << endl
+		<< "5. Quel pourcentage des gens de Vaudreuil possèdent plus d'un masque ?  " << stat05(pro, rep) << endl
+		<< "6. Quel pourcentage de la population utilise un désinfectant ?  " << stat06(inf) << endl
+		<< "7. Quel est le type de désinfectant le plus répandu ?  " << stat07(inf) << endl
+		<< "8. Combien de gens non testés et n'utilisant pas de désinfectant ont déja emprunté un masque ?  " << stat08(pro, inf) << endl
+		<< "9. Combien d'années de scolarité, en moyenne, ont les gens infectés de Montréal sans masque ou sans désinfectant ?  " << stat09(pro, inf, rep) << endl
+		<< "10. Quelle est la ville ayant fait subir le plus grand nombre de tests ?  " << stat10(inf, rep);
 	
 
 
